@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inglés técnico policial</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #0b1a2e;
+    color: #ffffff;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #4db8ff;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 600px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.2);
+  }
+
+  button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #0066cc;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #3385ff;
+    transform: scale(1.02);
+  }
+
+  #timer {
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #ffcc00;
+  }
+
+  #frases {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+
+<body>
+  <h1 style="display:flex; align-items:center; justify-content:center; gap:12px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/National_Police_Academy_%28Spain%29.svg/1149px-National_Police_Academy_%28Spain%29.svg.png" alt="Escudo" style="width:90px; height:auto; filter:drop-shadow(0 0 3px #4db8ff);">
+  Inglés técnico policial</h1>
+  <h4 style="display:flex; align-items:center; justify-content:center; gap:12px;"> Desarrolado para la Secc. 24 </h4>
+
+  <div class="card">
+    <p>1️⃣ Pulsa el botón del temporizador de 90 segundos.<br>
+    2️⃣ Luego pulsa el botón para generar 15 frases aleatorias.</p>
+
+    <button id="btnTimer">▶ Iniciar 90 segundos</button>
+    <button id="btnGenerar">🔀 Generar 15 frases</button>
+
+    <div id="timer">90</div>
+    <div id="frases"></div>
+  </div>
+
+<script>
+  // Sonido de alerta
+const alarma = new Audio("https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg");
+
+const frases = [
+"¿Cuál es su nombre?",
+"Voy a cachearte",
+"¿Puedo ver su permiso de conducir?",
+"¿Puede enseñarme su permiso de residencia?",
+"Señor, ¿está bien?, ¿está herido?",
+"Estoy lesionado",
+"Estás detenido",
+"Métete en el coche",
+"Me está dando un infarto",
+"No puedo respirar",
+"Alguien me ha disparado en el pecho",
+"¿Cuál es su apellido?",
+"Me han robado la cartera",
+"Creo que tengo el brazo roto",
+"Intente mantener la calma, pediré una ambulancia",
+"Sal del coche",
+"¿Cuál es su nombre completo?",
+"Suelte el cuchillo",
+"¿Puedo ver su pasaporte?",
+"¿Toma alguna medicación?",
+"¿Está usted herido?",
+"Tiene que ir a comisaría a denunciar el delito.",
+"¿Cuál es su fecha de nacimiento?",
+"¿Cómo ha sucedido?",
+"¿Cuál es su número de teléfono?",
+"¿Vio al autor? ¿Puede describirle?",
+"¿Era alto o bajo?",
+"Denunciar un delito",
+"¡Policía! ¡Alto! ¡No se mueva! ¡Quieto!",
+"Estoy herido",
+"¿Cuál es su lugar de nacimiento?",
+"Contra la pared, cara a la pared",
+"¿Cuál es su dirección en España?",
+"Saca las manos de los bolsillos",
+"Alguien me ha apuñalado en el pecho",
+"¿Cuántos años tenía?",
+"Déjame ver tus manos",
+"Estoy sangrando",
+"¿Cuál es su nacionalidad?",
+"Pon las manos en la pared",
+"Separa los brazos, separa las piernas, ¡más!",
+"Pon las manos detrás de tu espalda",
+"Echa los pies hacia atrás",
+"¿Puedo ver su DNI?",
+"Creo que tengo la pierna rota",
+"Voy a engrilletarte",
+"Suelte el arma"
+];
+
+function generarFrases() {
+  const seleccion = [];
+  const copia = [...frases];
+  for (let i = 0; i < 15; i++) {
+    const idx = Math.floor(Math.random() * copia.length);
+    seleccion.push("• " + copia[idx]);
+    copia.splice(idx, 1);
+  }
+  document.getElementById('frases').textContent = seleccion.join("\n");
+}
+
+let tiempo = 90;
+let intervalo = null;
+
+function iniciarTimer() {
+  clearInterval(intervalo);
+  tiempo = 90;
+  document.getElementById('timer').textContent = tiempo;
+
+  intervalo = setInterval(() => {
+    tiempo--;
+    document.getElementById('timer').textContent = tiempo;
+   if (tiempo <= 0) {
+  clearInterval(intervalo);
+  document.getElementById('timer').textContent = "⛔ ¡Tiempo finalizado!";
+  try { alarma.play(); } catch (e) { console.log("No se pudo reproducir la alarma"); }
+}
+
+  }, 1000);
+}
+
+document.getElementById("btnTimer").addEventListener("click", iniciarTimer);
+document.getElementById("btnGenerar").addEventListener("click", generarFrases);
+</script>
+
+</body>
+</html>
