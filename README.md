@@ -1,2 +1,2 @@
-# Ingl-s-T-cnico-Policial
+# INGLES-TECNICO-Policial
 Desarrollado para Secc 24
